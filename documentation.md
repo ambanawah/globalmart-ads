@@ -1,7 +1,3 @@
-Here’s a **project documentation template** tailored for an advanced, database-oriented **e-commerce website**. It’s structured to cover all critical aspects: technical, functional, and organizational. You can adapt it to your project’s specific needs.
-
----
-
 # 📘 Project Documentation Template: Advanced E-commerce Website
 
 ## 1. Project Overview
