@@ -21,41 +21,70 @@ The design follows standard relational database principles and normalization tec
 
 Based on the system architecture defined earlier, the main entities required for the application include:
 
-- Users – Stores customer and administrator accounts
+* Users – Stores customer and administrator accounts
 
-- Categories – Organizes products into logical groups
+* Categories – Organizes products into logical groups
 
-- Products – Contains product information available in the store
+ambanawah-feature
+## 8. Deployment & CI/CD
+* **Version Control:** GitHub/GitLab  
+* **CI/CD Pipeline:** GitHub Actions / Jenkins  
+* **Containerization:** Docker images for services  
+* **Monitoring:** Prometheus, Grafana, ELK stack  
 
-- Addresses – Stores shipping and billing addresses
+---
 
-- Orders – Represents customer purchases
+## 9. Maintenance & Support
+* **Bug Tracking:** Jira / Trello  
+* **Update Policy:** Monthly feature updates, weekly patches  
+* **Documentation Updates:** With each release  
 
-- Order Items – Lists products included in each order
+---
 
-- Payments – Records payment transactions
+## 10. Appendices
+* Glossary of terms  
+* References  
+* Change log  
 
-- Reviews – Stores customer product reviews
+---
 
-- Carts – Temporary storage of items selected by a user
+👉 This template gives you a **professional, database-focused structure** for documenting your e-commerce project.  
 
-- Wishlists – Products saved by users for future purchase
+Would you like me to also create a **ready-to-use ER diagram schema** (with tables and relationships) so you can plug it directly into your project?
+ HEAD
+d570e89 (Resolve merge conflict and finalize documentation)
+
+* Products – Contains product information available in the store
+
+* Addresses – Stores shipping and billing addresses
+
+* Orders – Represents customer purchases
+
+* Order Items – Lists products included in each order
+
+* Payments – Records payment transactions
+
+* Reviews – Stores customer product reviews
+
+* Carts – Temporary storage of items selected by a user
+
+* Wishlists – Products saved by users for future purchase
 
 ### Key Relationships
 
-- One User can place multiple Orders
+* One User can place multiple Orders
 
-- One Order contains multiple Order Items
+* One Order contains multiple Order Items
 
-- One Product belongs to one Category
+* One Product belongs to one Category
 
-- One User can create multiple Reviews
+* One User can create multiple Reviews
 
-- One Product can receive multiple Reviews
+* One Product can receive multiple Reviews
 
-- One User can have multiple Addresses
+* One User can have multiple Addresses
 
-- One User has a Cart containing multiple products
+* One User has a Cart containing multiple products
 
 NB:These relationships ensure that the database structure reflects real-world e-commerce interactions.
 
@@ -247,29 +276,29 @@ Each table includes a primary key which uniquely identifies each record.
 Foreign key constraints are used to maintain relationships between related tables. 
 For example:
 
-- orders.user_id references users.user_id
+* orders.user_id references users.user_id
 
-- order_items.product_id references products.product_id
+* order_items.product_id references products.product_id
 
-- reviews.product_id references products.product_id
+* reviews.product_id references products.product_id
 
 * Unique Constraints
 
 Certain fields must contain unique values. For example:
 
-- Email addresses in the users table must be unique.
+* Email addresses in the users table must be unique.
 
-- The carts and wishlists tables enforce a unique combination of user and product to prevent duplicate entries.
+* The carts and wishlists tables enforce a unique combination of user and product to prevent duplicate entries.
 
 * Check Constraints
 
 Check constraints enforce valid data values, such as:
 
-- Product ratings must be between 1 and 5
+* Product ratings must be between 1 and 5
 
-- Order status must match predefined states
+* Order status must match predefined states
 
-- Payment status must match valid transaction states
+* Payment status must match valid transaction states
 
 ### 3.6 Database Indexing
 
@@ -277,13 +306,13 @@ Indexes are implemented to improve query performance for frequently accessed col
 
 Examples include indexing:
 
-- users.email
+* users.email
 
-- products.category_id
+* products.category_id
 
-- orders.user_id
+* orders.user_id
 
-- order_items.order_id
+* order_items.order_id
 
 ### Example index creation:
 
@@ -324,3 +353,4 @@ This schema supports the main business operations of the platform including user
 
 
 ### 4.
+ main
