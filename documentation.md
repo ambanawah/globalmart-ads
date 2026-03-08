@@ -14,9 +14,87 @@ Define what the project includes (e.g., product catalog, shopping cart, payment 
 
 ---
 
-## 2. System Architecture
-### 2.1 High-Level Architecture Diagram  
-*(Insert diagram showing frontend, backend, database, APIs, and integrations)*
+### 2. Database-Centric System Architecture
+##  Overview
+    
+This document focuses on the database-centric architecture of GlobalMart, showing how users and applications interact with the database system we are designing in class. The architecture emphasizes the database as the core component, with all other elements serving as interfaces to the data.
+
+## 1.High-Level Architecture Diagram  
+```mermaid
+graph TB
+    subgraph "Users"
+        C[Customers]
+        A[Administrators]
+        S[Staff]
+    end
+    
+    subgraph "Client Applications"
+        WEB[Web Browser]
+        MOBILE[Mobile App]
+        API[API Clients]
+    end
+    
+    subgraph "Application Layer"
+        UI[React Frontend]
+        APP[Application Server]
+    end
+    
+    subgraph "Database Layer - GLOBALMART CORE"
+        DB[(PostgreSQL Database)]
+        
+        subgraph "Database Objects"
+            T[Tables]
+            V[Views]
+            SP[Stored Procedures]
+            TR[Triggers]
+            IX[Indexes]
+        end
+        
+        subgraph "Data Integrity"
+            PK[Primary Keys]
+            FK[Foreign Keys]
+            CC[Check Constraints]
+            UC[Unique Constraints]
+        end
+    end
+    
+    subgraph "External Data Sources"
+        EX[Exchange Rate API]
+    end
+    
+    C --> WEB
+    A --> WEB
+    S --> WEB
+    MOBILE --> APP
+    API --> APP
+    WEB --> APP
+    APP --> DB
+    
+    DB --> T
+    DB --> V
+    DB --> SP
+    DB --> TR
+    DB --> IX
+    
+    DB --> PK
+    DB --> FK
+    DB --> CC
+    DB --> UC
+    
+    EX -.->|Updates| DB
+    
+    style DB fill:#fbb,stroke:#f00,stroke-width:4px
+    style T fill:#fbb,stroke:#333,stroke-width:1px
+    style V fill:#fbb,stroke:#333,stroke-width:1px
+    style SP fill:#fbb,stroke:#333,stroke-width:1px
+    style TR fill:#fbb,stroke:#333,stroke-width:1px
+    style IX fill:#fbb,stroke:#333,stroke-width:1px
+    
+    style PK fill:#ff9,stroke:#333,stroke-width:1px
+    style FK fill:#ff9,stroke:#333,stroke-width:1px
+    style CC fill:#ff9,stroke:#333,stroke-width:1px
+    style UC fill:#ff9,stroke:#333,stroke-width:1px
+```
 
 ### 2.2 Technology Stack  
 - **Frontend:** React / Next.js / Tailwind CSS  
