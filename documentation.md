@@ -1,102 +1,106 @@
+### 3. Database Design & SQL Schema
+### 3.1 Introduction to Database Design
 
-# 📘 Project Documentation Template:  E-commerce Website
+Following the system requirements and architecture described in the previous sections, the database layer is designed to support the core functionality of the GlobalMart Ads E-commerce Website. The database is responsible for storing, organizing, and managing all application data including users, products, orders, and transactions.
 
-## 1. Introduction & Requirements (Member 1)
-### 1.1 Project Overview
-- **Project Name:** GlobalMart Ads E-commerce Website
-- **Version:** 1.0
-- **Date:** March 8, 2026
-- **Prepared By:** NANSHIE ROMUALD      Matricule: ICTU20233780
+The system uses PostgreSQL, a relational database management system known for its reliability, scalability, and strong support for data integrity. The database schema is structured to ensure efficient data retrieval, maintain referential integrity between tables, and support the various operations required by the e-commerce platform.
 
-### 1.2 Purpose
-The GlobalMart Ads E-commerce Website is designed to provide a scalable online marketplace where users can browse, purchase, and review products. It includes advanced features like personalized recommendations, secure payments, and comprehensive analytics.
+The design follows standard relational database principles and normalization techniques to reduce redundancy and improve maintainability.
 
-### 1.3 Scope
-- **In Scope:** User registration, product catalog, shopping cart, checkout, payment processing, order management, reviews, admin dashboard.
-- **Out of Scope:** Mobile app development, third-party integrations beyond payment gateways.
+### 3.2 Entity–Relationship Model
 
-### 1.4 Functional Requirements
-- User authentication and authorization
-- Product search and filtering
-- Shopping cart and wishlist
-- Secure checkout and payment
-- Order tracking
-- Product reviews and ratings
-- Admin panel for product and order management
+Based on the system architecture defined earlier, the main entities required for the application include:
 
-### 1.5 Non-Functional Requirements
-- Performance: Support up to 10,000 concurrent users
-- Security: Implement SSL, data encryption, and compliance with GDPR
-- Scalability: Use cloud services for horizontal scaling
-- Availability: 99.9% uptime
+- Users – Stores customer and administrator accounts
 
----
+- Categories – Organizes products into logical groups
 
-## 2. System Design (Member 2)
-### 2.1 High-Level Architecture Diagram
-*(Insert diagram showing frontend, backend, database, APIs, and integrations)*
+- Products – Contains product information available in the store
 
-### 2.2 Technology Stack
-- **Frontend:** React.js with Next.js framework
-- **Backend:** Node.js with Express.js
-- **Database:** PostgreSQL
-- **ORM:** Prisma
-- **Authentication:** JWT tokens
-- **Payment Gateway:** Stripe
-- **Hosting:** AWS (EC2, RDS, S3)
-- **Deployment:** Docker and Kubernetes
+- Addresses – Stores shipping and billing addresses
 
-### 2.3 System Components
-- **Web Server:** Handles HTTP requests and serves the frontend
-- **API Server:** Provides RESTful APIs for data operations
-- **Database Server:** Stores all application data
-- **Cache Layer:** Redis for session management and caching
-- **Message Queue:** For asynchronous tasks like email notifications
+- Orders – Represents customer purchases
 
-### 2.4 Data Flow
-1. User interacts with frontend
-2. Frontend makes API calls to backend
-3. Backend queries/updates database
-4. Responses are sent back to frontend
+- Order Items – Lists products included in each order
 
----
+- Payments – Records payment transactions
 
-## 3. Database Design & SQL Schema (Member 3)
-### 3.1 Entity-Relationship Diagram
-*(Insert ER diagram showing relationships between entities)*
+- Reviews – Stores customer product reviews
 
-### 3.2 Database Schema Overview
-The database is designed using PostgreSQL with the following main entities:
-- Users: Store customer and admin information
-- Categories: Product categories for organization
-- Products: Product catalog with details
-- Orders: Customer orders
-- Order_Items: Items within an order
-- Payments: Payment transactions
-- Addresses: Shipping and billing addresses
-- Reviews: Customer feedback on products
-- Carts: Shopping cart items
-- Wishlists: User wishlists
+- Carts – Temporary storage of items selected by a user
 
-### 3.3 SQL Schema
-Below are the CREATE TABLE statements for the database schema.
+- Wishlists – Products saved by users for future purchase
 
-```sql
--- Users table
-CREATE TABLE users (
+### Key Relationships
+
+- One User can place multiple Orders
+
+- One Order contains multiple Order Items
+
+- One Product belongs to one Category
+
+- One User can create multiple Reviews
+
+- One Product can receive multiple Reviews
+
+- One User can have multiple Addresses
+
+- One User has a Cart containing multiple products
+
+NB:These relationships ensure that the database structure reflects real-world e-commerce interactions.
+
+### 3.3 Database Schema Overview
+
+The database schema is implemented using multiple relational tables that represent the entities described above. Each table contains a primary key to uniquely identify records and foreign keys to maintain relationships between tables.
+
+Key design considerations include:
+
+* Ensuring data consistency using constraints
+
+* Maintaining referential integrity between related entities
+
+* Supporting efficient queries for common operations such as product search, order  retrieval, and user account management
+
+The following tables form the core structure of the system:
+
+ ### Table           	               Purpose
+   - users	                    Stores customer and admin account information
+   - categories	                Organizes products into categories
+   - products	                Contains product information and pricing
+   - addresses	                Stores user shipping and billing addresses
+   - orders	                    Records customer orders
+   - order_items & Details      products included in each order
+   - payments	                Records payment information
+   - reviews	                Stores product ratings and comments
+   - carts	                    Temporary storage of shopping cart items
+   - wishlists	                Stores products saved for later purchase
+
+### 3.4 SQL Database Schema
+
+The following SQL statements define the structure of the database tables used in the system.
+
+### Users Table
+
+This table stores all user accounts including customers and administrators.
+  
+  CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     first_name VARCHAR(100),
     last_name VARCHAR(100),
     phone VARCHAR(20),
-    role VARCHAR(20) DEFAULT 'customer' CHECK (role IN ('customer', 'admin')),
+    role VARCHAR(20) DEFAULT 'customer'
+        CHECK (role IN ('customer', 'admin')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Categories table
-CREATE TABLE categories (
+### Categories Table
+
+This table organizes products into hierarchical categories.
+
+  CREATE TABLE categories (
     category_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description TEXT,
@@ -104,8 +108,11 @@ CREATE TABLE categories (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Products table
-CREATE TABLE products (
+### Products Table
+
+This table stores all products available in the store.
+
+  CREATE TABLE products (
     product_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
@@ -118,8 +125,11 @@ CREATE TABLE products (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Addresses table
-CREATE TABLE addresses (
+### Addresses Table
+
+This table stores user shipping and billing addresses.
+
+  CREATE TABLE addresses (
     address_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
     street VARCHAR(255),
@@ -127,23 +137,31 @@ CREATE TABLE addresses (
     state VARCHAR(100),
     zip_code VARCHAR(20),
     country VARCHAR(100),
-    address_type VARCHAR(20) DEFAULT 'shipping' CHECK (address_type IN ('shipping', 'billing')),
+    address_type VARCHAR(20) DEFAULT 'shipping'
+        CHECK (address_type IN ('shipping','billing')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Orders table
-CREATE TABLE orders (
+### Orders Table
+
+This table records customer purchases.
+
+  CREATE TABLE orders (
     order_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
     total_amount DECIMAL(10,2) NOT NULL,
-    status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'processing', 'shipped', 'delivered', 'cancelled')),
+    status VARCHAR(20) DEFAULT 'pending'
+        CHECK (status IN ('pending','processing','shipped','delivered','cancelled')),
     shipping_address_id INT REFERENCES addresses(address_id),
     billing_address_id INT REFERENCES addresses(address_id),
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Order_Items table
+### Order Items Table
+
+This table stores the individual products included in each order.
+
 CREATE TABLE order_items (
     order_item_id SERIAL PRIMARY KEY,
     order_id INT REFERENCES orders(order_id),
@@ -153,19 +171,26 @@ CREATE TABLE order_items (
     total_price DECIMAL(10,2) NOT NULL
 );
 
--- Payments table
-CREATE TABLE payments (
+### Payments Table
+
+This table stores information about order payments.
+
+  CREATE TABLE payments (
     payment_id SERIAL PRIMARY KEY,
     order_id INT REFERENCES orders(order_id),
     amount DECIMAL(10,2) NOT NULL,
     payment_method VARCHAR(50),
     transaction_id VARCHAR(255),
-    status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'completed', 'failed', 'refunded')),
+    status VARCHAR(20) DEFAULT 'pending'
+        CHECK (status IN ('pending','completed','failed','refunded')),
     payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Reviews table
-CREATE TABLE reviews (
+### Reviews Table
+
+This table allows users to review and rate products.
+
+  CREATE TABLE reviews (
     review_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
     product_id INT REFERENCES products(product_id),
@@ -174,8 +199,11 @@ CREATE TABLE reviews (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Carts table
-CREATE TABLE carts (
+### Carts Table
+
+This table temporarily stores products selected by users before checkout.
+
+  CREATE TABLE carts (
     cart_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
     product_id INT REFERENCES products(product_id),
@@ -184,83 +212,98 @@ CREATE TABLE carts (
     UNIQUE(user_id, product_id)
 );
 
--- Wishlists table
-CREATE TABLE wishlists (
+### Wishlists Table
+
+This table allows users to save products for future purchases.
+
+  CREATE TABLE wishlists (
     wishlist_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
     product_id INT REFERENCES products(product_id),
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(user_id, product_id)
 );
-```
 
-### 3.4 Indexes and Constraints
-- Primary keys on all tables
-- Foreign key constraints to maintain referential integrity
-- Unique constraints on email in users, and composite unique on carts and wishlists
-- Indexes on frequently queried columns: email, category_id, product_id, order_id, user_id
-- Check constraints on ratings and statuses
+### 3.5 Constraints and Data Integrity
 
-### 3.5 Advanced Features
-- **Triggers:** Automatic update of updated_at timestamps
-- **Stored Procedures:** For complex operations like order processing
-- **Views:** For reporting, e.g., sales summary
-- **Partitioning:** Orders table partitioned by date for performance
-- **Backup Strategy:** Daily automated backups with point-in-time recovery
+Several constraints are applied within the database to ensure data validity and integrity.
 
----
+* Primary Keys
 
-## 4. Implementation & Testing (Member 4)
-### 4.1 Implementation Plan
-- **Phase 1:** Setup development environment and database
-- **Phase 2:** Implement user authentication and basic CRUD operations
-- **Phase 3:** Develop product catalog and shopping features
-- **Phase 4:** Integrate payment gateway and order management
-- **Phase 5:** Add reviews, analytics, and admin features
+Each table includes a primary key which uniquely identifies each record.
 
-### 4.2 Code Structure
-- **Backend:** MVC pattern with controllers, models, routes
-- **Frontend:** Component-based architecture with React
-- **Database:** Migration scripts for schema changes
+* Foreign Keys
 
-### 4.3 Testing Strategy
-- **Unit Tests:** Test individual functions and database queries
-- **Integration Tests:** Test API endpoints and user flows
-- **End-to-End Tests:** Simulate user interactions with tools like Cypress
-- **Performance Tests:** Load testing with JMeter
-- **Security Tests:** Penetration testing and code reviews
+Foreign key constraints are used to maintain relationships between related tables. 
+For example:
 
-### 4.4 Deployment
-- Use CI/CD pipeline with GitHub Actions
-- Dockerize the application
-- Deploy to AWS with monitoring and logging
+- orders.user_id references users.user_id
 
----  
+- order_items.product_id references products.product_id
 
----
+- reviews.product_id references products.product_id
 
-## 8. Deployment & CI/CD
-- **Version Control:** GitHub/GitLab  
-- **CI/CD Pipeline:** GitHub Actions / Jenkins  
-- **Containerization:** Docker images for services  
-- **Monitoring:** Prometheus, Grafana, ELK stack  
+* Unique Constraints
 
----
+Certain fields must contain unique values. For example:
 
-## 9. Maintenance & Support
-- **Bug Tracking:** Jira / Trello  
-- **Update Policy:** Monthly feature updates, weekly patches  
-- **Documentation Updates:** With each release  
+- Email addresses in the users table must be unique.
 
----
+- The carts and wishlists tables enforce a unique combination of user and product to prevent duplicate entries.
 
-## 10. Appendices
-- Glossary of terms  
-- References  
-- Change log  
+* Check Constraints
 
----
+Check constraints enforce valid data values, such as:
 
-👉 This template gives you a **professional, database-focused structure** for documenting your e-commerce project.  
+- Product ratings must be between 1 and 5
 
-Would you like me to also create a **ready-to-use ER diagram schema** (with tables and relationships) so you can plug it directly into your project?
+- Order status must match predefined states
+
+- Payment status must match valid transaction states
+
+### 3.6 Database Indexing
+
+Indexes are implemented to improve query performance for frequently accessed columns.
+
+Examples include indexing:
+
+- users.email
+
+- products.category_id
+
+- orders.user_id
+
+- order_items.order_id
+
+### Example index creation:
+
+CREATE INDEX idx_products_category
+ON products(category_id);
+
+Indexes significantly improve performance for product searches, order lookups, and user account queries.
+
+### 3.7 Advanced Database Features
+
+To enhance system efficiency and maintainability, additional database mechanisms may be implemented.
+
+### Triggers
+
+Triggers can automatically update the updated_at timestamp whenever a record is modified.
+
+### Stored Procedures
+
+Stored procedures may be used for complex operations such as order processing and inventory updates.
+
+### Database Views
+
+Views can simplify reporting and analytics queries, for example a sales summary view combining orders and payments.
+
+### Backup Strategy
+
+To prevent data loss, the system will implement automated backups with support for point-in-time recovery.
+
+### 3.8 Summary
+
+The database design provides a structured and scalable foundation for the GlobalMart Ads E-commerce system. By implementing relational tables, constraints, indexing strategies, and advanced database features, the system ensures efficient data storage, high performance, and strong data integrity.
+
+This schema supports the main business operations of the platform including user management, product catalog management, order processing, payments, and customer reviews.
