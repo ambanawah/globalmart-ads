@@ -8,7 +8,7 @@
 
 
 
-### 3 Database Design & SQL Schema
+### 3. Database Design & SQL Schema
 ### 3.1 Introduction to Database Design
 
 Following the system requirements and architecture described in the previous sections, the database layer is designed to support the core functionality of the GlobalMart Ads E-commerce Website. The database is responsible for storing, organizing, and managing all application data including users, products, orders, and transactions.
@@ -75,13 +75,13 @@ The following tables form the core structure of the system:
 
  ### Table           	               Purpose
    - users	                    Stores customer and admin account information
-   - categories	                Organizes products into categories
-   - products	                Contains product information and pricing
+   - categories	               Organizes products into categories
+   - products	                 Contains product information and pricing
    - addresses	                Stores user shipping and billing addresses
-   - orders	                    Records customer orders
-   - order_items & Details      products included in each order
-   - payments	                Records payment information
-   - reviews	                Stores product ratings and comments
+   - orders	                   Records customer orders
+   - order_items & Details     products included in each order
+   - payments	                 Records payment information
+   - reviews	                  Stores product ratings and comments
    - carts	                    Temporary storage of shopping cart items
    - wishlists	                Stores products saved for later purchase
 
