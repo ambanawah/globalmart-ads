@@ -88,7 +88,7 @@ Customer actions include:
 - Adding items to a cart
 - Placing orders
 
-6.2 Administrator
+6.2 Administrators
 The administrator manages the overall operation of the system.
 Administrator responsibilities include:
 - Managing products
