@@ -1,133 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GlobalMart Ads</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="css/styles.css">
+    <!-- SEO -->
+    <title>GLOBALMART · Premium African Marketplace</title>
+    <meta name="description" content="Discover authentic African crafts, textiles, spices and artisan stories. GLOBALMART connects you to culture.">
 
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
 
-<header>
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar">
+    <div class="container">
+        <div class="navbar-content">
 
-<h1>GlobalMart Ads</h1>
+            <div class="logo">
+                <span class="logo-icon">🌍</span>
+                <span class="logo-text">GLOBALMART</span>
+            </div>
 
-<nav>
-<a href="#">Home</a>
-<a href="#">Products</a>
-<a href="#">Categories</a>
-<a href="#">Cart</a>
-<a href="#">Login</a>
+            <div class="nav-links">
+                <a href="#products" class="nav-link">collection</a>
+                <a href="#categories" class="nav-link">crafts</a>
+                <a href="#about" class="nav-link">story</a>
+            </div>
+
+            <div class="nav-actions">
+
+                <!-- SEARCH -->
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" placeholder="Search masks, textiles, spices...">
+                    <button>🔍</button>
+                </div>
+
+                <!-- CART -->
+                <button class="btn-cart" id="cartButton">
+                    🛒 <span class="cart-count" id="cartCount">0</span>
+                </button>
+
+                <!-- AUTH -->
+                <button class="btn btn-secondary">Sign in</button>
+            </div>
+
+        </div>
+    </div>
 </nav>
 
-</header>
-
-
+<!-- ==================== HERO ==================== -->
 <section class="hero">
+    <div class="container hero-grid">
 
-<h2>Your Online Shopping Destination</h2>
-<p>Discover amazing products and shop at the best prices.</p>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                where culture meets <span class="highlight">commerce</span>
+            </h1>
 
-<button>Shop Now</button>
+            <p class="hero-subtitle">
+                Discover premium African craftsmanship — textiles, spices, jewelry and heritage pieces shipped worldwide.
+            </p>
 
+            <div class="hero-cta">
+                <button class="btn btn-primary">✨ Explore</button>
+                <button class="btn btn-secondary">📿 Artisan Story</button>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="floating-card">🥻</div>
+            <div class="floating-card delay">🪘</div>
+            <div class="floating-card delay2">🌶️</div>
+        </div>
+
+    </div>
 </section>
 
+<!-- ==================== CATEGORIES ==================== -->
+<section class="categories" id="categories">
+    <div class="container">
 
-<section class="section">
+        <h2 class="section-title">browse by craft</h2>
 
-<h2>Featured Products</h2>
+        <div class="categories-grid">
+            <div class="category-card"><div class="category-icon">🎭</div><h3>wood masks</h3></div>
+            <div class="category-card"><div class="category-icon">🧶</div><h3>textiles</h3></div>
+            <div class="category-card"><div class="category-icon">⚱️</div><h3>ceramics</h3></div>
+            <div class="category-card"><div class="category-icon">🪶</div><h3>jewelry</h3></div>
+        </div>
 
-<div class="products">
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
-
-<div class="card-content">
-<h3>Smartphone</h3>
-<p class="price">350,000 FCFA</p>
-<button>Add to Cart</button>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1585386959984-a41552262d20">
-
-<div class="card-content">
-<h3>Wireless Headphones</h3>
-<p class="price">45,000 FCFA</p>
-<button>Add to Cart</button>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
-
-<div class="card-content">
-<h3>Laptop</h3>
-<p class="price">720,000 FCFA</p>
-<button>Add to Cart</button>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1518441902110-7b2c6c3e94e6">
-
-<div class="card-content">
-<h3>Smart Watch</h3>
-<p class="price">85,000 FCFA</p>
-<button>Add to Cart</button>
-</div>
-
-</div>
-
-</div>
-
+    </div>
 </section>
 
+<!-- ==================== PRODUCTS ==================== -->
+<section class="featured-products" id="products">
+    <div class="container">
 
-<section class="section">
+        <h2 class="section-title">fresh from the workshop</h2>
 
-<h2>Why Shop With Us</h2>
+        <!-- DYNAMIC PRODUCTS -->
+        <div class="products-grid" id="productGrid">
 
-<div class="features">
+            <!-- Loader (replaced by JS) -->
+            <div class="loader"></div>
 
-<div class="feature-box">
-<h3>Fast Delivery</h3>
-<p>We deliver products quickly and safely.</p>
-</div>
+        </div>
 
-<div class="feature-box">
-<h3>Secure Payments</h3>
-<p>All payments are encrypted and protected.</p>
-</div>
-
-<div class="feature-box">
-<h3>Quality Products</h3>
-<p>We sell only trusted and high quality items.</p>
-</div>
-
-</div>
-
+    </div>
 </section>
 
+<!-- ==================== CART MODAL ==================== -->
+<div id="cartModal" class="cart-modal">
+    <div class="cart-content modern-cart">
 
-<footer>
+    <div class="cart-header">
+        <h2>🛒 Your Cart</h2>
+        <button id="closeCart" class="close-btn">✕</button>
+    </div>
 
-<p>© 2026 GlobalMart Ads - All Rights Reserved</p>
+    <!-- ITEMS -->
+    <div id="cartItems" class="cart-items"></div>
 
+    <!-- FOOTER -->
+    <div class="cart-footer modern-footer">
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="cartTotal">0 FCFA</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span id="cartTotalFinal">0 FCFA</span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary checkout-btn">
+             Proceed to Checkout...
+        </button>
+    </div>
+
+</div>
+</div>
+
+<!-- ==================== CHECKOUT MODAL ==================== -->
+<div id="checkoutModal" class="cart-modal">
+    <div class="cart-content">
+
+        <div class="cart-header">
+            <h2>💳 Checkout</h2>
+            <button onclick="document.getElementById('checkoutModal').classList.remove('open')">✕</button>
+        </div>
+
+        <div id="checkoutItems"></div>
+
+        <div class="cart-footer">
+            <h3>Total: <span id="checkoutTotal">0 FCFA</span></h3>
+
+            <!-- PAYMENT OPTIONS -->
+            <div class="payment-options">
+                <button id="payNow" class="btn btn-primary">
+                    💰 Pay Now
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+    <p>🌍 GLOBALMART · premium african marketplace · 2026</p>
 </footer>
+
+<!-- ==================== SCRIPT ==================== -->
+<script src="js/app.js"></script>
 
 </body>
 </html>
