@@ -4,7 +4,7 @@
     "use strict";
 
     // ==================== CONFIG ====================
-    const API_URL = "http://localhost:5000/api/products";
+    const API_URL = "https://globalmart-ads-mu.vercel.app/api/products";
 
     // ==================== DOM ====================
     const cartSpan = document.getElementById("cartCount");
